@@ -1,5 +1,8 @@
 function handleUpdated(tabId, changeInfo) {
-  if (changeInfo.url) {
+  if (
+    changeInfo.url &&
+    changeInfo.url.toString().includes('https://vrchat.com/home/user/')
+  ) {
     chrome.scripting.executeScript({
       target: { tabId: tabId },
       files: ['reinit.js'],
