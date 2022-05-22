@@ -1,3 +1,5 @@
+// TODO: make script dynamically inject once page finished loading instead of using setTimeout
+
 const notesDivStyle = `background-color: #242A31;
 margin-top: 16px;
 padding: 8px;
