@@ -1,4 +1,5 @@
 // TODO: make script dynamically inject once page finished loading instead of using setTimeout
+// TODO: find better way to store user data
 
 const notesDivStyle = `background-color: #242A31;
 margin-top: 16px;
