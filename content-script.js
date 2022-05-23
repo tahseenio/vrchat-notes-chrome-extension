@@ -1,7 +1,11 @@
 // TODO: make script dynamically inject once page finished loading instead of using setTimeout
-// TODO: find better way to store user data
 // TODO: create a save backup of localstorage data / restore from backup.
-// BUG: Content and reinit running at same time on first browser load on a profile page
+
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+  if (msg.text === 'are_you_there_content_script?') {
+    sendResponse({ status: 'yes' });
+  }
+});
 
 const notesDivStyle = `background-color: #242A31;
 margin-top: 16px;
@@ -38,9 +42,6 @@ const main = () => {
 
     const userID = window.location.href.slice(-40);
 
-    // if (localStorage.getItem(userID)) {
-    //   textArea.innerHTML = localStorage.getItem(userID);
-    // }
     let notes = [];
     if (localStorage.getItem('userNotes')) {
       notes = JSON.parse(localStorage.getItem('userNotes'));
@@ -49,7 +50,7 @@ const main = () => {
           textArea.innerHTML = elem.note;
         }
       });
-      console.log('ON MOUNT:', notes);
+      // console.log('ON MOUNT:', notes);
     }
 
     textArea.addEventListener('keyup', (e) => {
@@ -65,7 +66,7 @@ const main = () => {
           });
           notes = [...newArr];
           localStorage.setItem('userNotes', JSON.stringify(notes));
-          console.log('notes edited', notes);
+          // console.log('notes edited', notes);
         }
       });
 
@@ -80,55 +81,11 @@ const main = () => {
         ];
         notes = [...newArr];
         localStorage.setItem('userNotes', JSON.stringify(notes));
-        console.log('notes find', notes);
+        // console.log('notes find', notes);
       }
-
-      // if localstorage of the array exists then getItem the value and set it to the innerHtml of textarea
-      // check if the userID exists in the array and if not exist add in a new object in array
-
-      // if userID exists then update array
-
-      // if (localStorage.getItem('userNotes')) {
-      //   userNotes = JSON.parse(localStorage.getItem('userNotes'));
-      //   textArea.innerHTML = userNotes.filter((elem) => {
-      //     if (elem.userID === userID) return elem.note;
-      //   });
-      // }
-
-      // if (userNotes.find((elem) => elem.userID === userID) === 'undefined') {
-      //   const newArr = [
-      //     ...userNotes,
-      //     {
-      //       userID: userID,
-      //       note: e.target.value,
-      //     },
-      //   ];
-      //   console.log(newArr);
-      //   localStorage.setItem('userNotes', JSON.stringify(newArr));
-      //   userNotes = JSON.parse(localStorage.getItem('userNotes'));
-      // } else {
-      //   // console.log('VALUE EXISTS UPDATE IT');
-      //   const newArr = userNotes.map((elem) => {
-      //     if (elem.userID === userID) {
-      //       return {
-      //         ...elem,
-      //         note: e.target.value,
-      //       };
-      //     } else return elem;
-      //   });
-      //   localStorage.setItem('userNotes', JSON.stringify(newArr));
-      //   userNotes = JSON.parse(localStorage.getItem('userNotes'));
-      //   console.log(JSON.parse(localStorage.getItem('userNotes')));
-      // }
-
-      // localStorage.setItem(window.location.href.slice(-40), e.target.value);
-
-      // get stored array
-      // map through array and update object if userID === elem.userID
-      // else if non existent just push it into array
     });
-  }, 4000);
-  console.log('script ran...');
+  }, 3000);
+  // console.log('script ran...');
 };
 
 main();
