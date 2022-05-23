@@ -1,5 +1,5 @@
 chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
-  console.log('Page uses History API and detected tab change:', details.tabId);
+  // console.log('Page uses History API and detected tab change:', details.tabId);
   chrome.tabs.sendMessage(
     details.tabId,
     { text: 'are_you_there_content_script?' },
