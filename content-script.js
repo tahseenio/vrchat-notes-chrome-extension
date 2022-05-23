@@ -1,4 +1,3 @@
-// TODO: make script dynamically inject once page finished loading instead of using setTimeout
 // TODO: create a save backup of localstorage data / restore from backup.
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
@@ -24,68 +23,79 @@ color: white;
 background-color: transparent;
 resize: none;`;
 
+const findInjectTime = () => {
+  if (document.querySelector('.css-rqhlr5') === null) {
+    setTimeout(() => {
+      findInjectTime();
+    }, 100);
+  } else {
+    main();
+  }
+};
+findInjectTime();
+
 const main = () => {
-  setTimeout(() => {
-    const divToInject = document.querySelector('.css-rqhlr5');
-    const notesDiv = document.createElement('div');
-    const notesTitle = document.createElement('div');
-    const textArea = document.createElement('textarea');
+  const divToInject = document.querySelector('.css-rqhlr5');
 
-    // load div,textarea and inject
-    divToInject.append(notesDiv);
-    notesDiv.append(notesTitle);
-    notesDiv.append(textArea);
-    notesDiv.style.cssText = notesDivStyle;
-    notesTitle.style.cssText = notesTitleStyle;
-    notesTitle.innerHTML = 'Notes';
-    textArea.style.cssText = textAreaInnerStyle;
+  // This prevents multiple notes on the same page from being made
+  if (divToInject.childElementCount === 2) return;
 
-    const userID = window.location.href.slice(-40);
+  const notesDiv = document.createElement('div');
+  const notesTitle = document.createElement('div');
+  const textArea = document.createElement('textarea');
 
-    let notes = [];
-    if (localStorage.getItem('userNotes')) {
-      notes = JSON.parse(localStorage.getItem('userNotes'));
-      notes.filter((elem) => {
-        if (elem.userID === userID) {
-          textArea.innerHTML = elem.note;
-        }
-      });
-      // console.log('ON MOUNT:', notes);
-    }
+  // load div,textarea and inject
+  divToInject.append(notesDiv);
+  notesDiv.append(notesTitle);
+  notesDiv.append(textArea);
+  notesDiv.style.cssText = notesDivStyle;
+  notesTitle.style.cssText = notesTitleStyle;
+  notesTitle.innerHTML = 'Notes';
+  textArea.style.cssText = textAreaInnerStyle;
 
-    textArea.addEventListener('keyup', (e) => {
-      notes.find((elem) => {
-        if (elem.userID === userID) {
-          const newArr = notes.map((elem) => {
-            if (elem.userID === userID) {
-              return {
-                ...elem,
-                note: e.target.value,
-              };
-            } else return elem;
-          });
-          notes = [...newArr];
-          localStorage.setItem('userNotes', JSON.stringify(notes));
-          // console.log('notes edited', notes);
-        }
-      });
+  const userID = window.location.href.slice(-40);
 
-      if (notes.find((elem) => elem.userID === userID) === undefined) {
-        // if undefined create a new object with note and
-        const newArr = [
-          ...notes,
-          {
-            userID: userID,
-            note: e.target.value,
-          },
-        ];
-        notes = [...newArr];
-        localStorage.setItem('userNotes', JSON.stringify(notes));
-        // console.log('notes find', notes);
+  let notes = [];
+  if (localStorage.getItem('userNotes')) {
+    notes = JSON.parse(localStorage.getItem('userNotes'));
+    notes.filter((elem) => {
+      if (elem.userID === userID) {
+        textArea.innerHTML = elem.note;
       }
     });
-  }, 3000);
+    // console.log('ON MOUNT:', notes);
+  }
+
+  textArea.addEventListener('keyup', (e) => {
+    notes.find((elem) => {
+      if (elem.userID === userID) {
+        const newArr = notes.map((elem) => {
+          if (elem.userID === userID) {
+            return {
+              ...elem,
+              note: e.target.value,
+            };
+          } else return elem;
+        });
+        notes = [...newArr];
+        localStorage.setItem('userNotes', JSON.stringify(notes));
+        // console.log('notes edited', notes);
+      }
+    });
+
+    if (notes.find((elem) => elem.userID === userID) === undefined) {
+      // if undefined create a new object with note and
+      const newArr = [
+        ...notes,
+        {
+          userID: userID,
+          note: e.target.value,
+        },
+      ];
+      notes = [...newArr];
+      localStorage.setItem('userNotes', JSON.stringify(notes));
+      // console.log('notes find', notes);
+    }
+  });
   // console.log('script ran...');
 };
-
-main();
