@@ -5,18 +5,24 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
     { text: 'are_you_there_content_script?' },
     function (msg) {
       msg = msg || {};
+      if (chrome.runtime.lastError) {
+      }
       if (msg.status !== 'yes') {
         console.log('failed to get status?');
-        chrome.scripting.executeScript({
-          target: { tabId: details.tabId },
-          files: ['content-script.js'],
-        });
+        if (details.url.includes('https://vrchat.com/home/user/')) {
+          chrome.scripting.executeScript({
+            target: { tabId: details.tabId },
+            files: ['content-script.js'],
+          });
+        }
       } else if (msg.status === 'yes') {
         console.log('status yes');
-        chrome.scripting.executeScript({
-          target: { tabId: details.tabId },
-          files: ['reinit.js'],
-        });
+        if (details.url.includes('https://vrchat.com/home/user/')) {
+          chrome.scripting.executeScript({
+            target: { tabId: details.tabId },
+            files: ['reinit.js'],
+          });
+        }
       }
     }
   );
