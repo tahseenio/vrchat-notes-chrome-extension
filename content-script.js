@@ -1,3 +1,4 @@
+// TODO: convert localstorage to chrome.storage
 // TODO: create a save backup of localstorage data / restore from backup.
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
