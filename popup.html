@@ -7,8 +7,11 @@
   <body>
     <main>
       <p>Backup or restore data</p>
-      <button id="save" class="button">Save Data</button>
-      <button id="restore" class="button">Restore Data</button>
+      <button id="backup" class="button">Save Data</button>
+      <form id="form">
+        <input type="file" id="file" accept=".json"></input>
+        <button type="submit" id="restore" class="button">Restore Data</button>
+      </form>
     </main>
   </body>
 </html>

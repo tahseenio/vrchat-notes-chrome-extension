@@ -1,6 +1,6 @@
 main {
-  height: 100px;
-  width: 200px;
+  height: 200px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,6 +18,10 @@ main {
   transition: 300ms;
   border-radius: 30px;
   cursor: pointer;
+}
+
+#save {
+  margin-bottom: 16px;
 }
 
 .button:hover {
