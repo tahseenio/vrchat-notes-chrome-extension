@@ -1,4 +1,5 @@
 // TODO: maybe convert to chrome.local.storage if unable to directly obtain access localstorage
+// TODO: add option to manually sync to chrome and set last sync time somewhere.
 
 const getFileText = () => {
   const [file] = document.getElementById('file').files;
