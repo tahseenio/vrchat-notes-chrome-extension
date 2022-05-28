@@ -1,0 +1,1 @@
+# vrchat-notes-chrome-extension
