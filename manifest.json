@@ -3,7 +3,14 @@
   "description": "Add a notes section to a users profile so you can remember important information about them",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["storage", "tabs", "scripting", "webNavigation", "downloads"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "webNavigation",
+    "downloads",
+    "storage"
+  ],
   "content_scripts": [
     {
       "matches": ["https://vrchat.com/home/user/*"],

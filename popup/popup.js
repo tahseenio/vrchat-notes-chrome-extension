@@ -9,9 +9,12 @@ const getFileText = () => {
   reader.addEventListener('load', () => {
     const data = reader.result;
     const finalData = JSON.parse(data);
+    chrome.storage.local.set({ userNotes: finalData }, () => {
+      console.log('notes is set to ' + notes);
+    });
 
-    // TODO: insert code to set localstorage as data.json inputted here
-    alert(finalData);
+    // TODO: ADD a SUCCESSFULY UPLOADED STATE FOR the upload data
+    // alert(finalData);
   });
 
   if (file) {
@@ -35,10 +38,13 @@ backup.addEventListener('click', () => {
   //TODO: need to find a way to access localstorage of vrchat from popup.html
   // const data = JSON.parse(localStorage.getItem('userNotes'));
 
-  const fileToSave = JSON.stringify(data);
-  const url = 'data:application/json;base64,' + btoa(fileToSave);
-  chrome.downloads.download({
-    url: url,
-    filename: 'userNotes.json',
+  chrome.storage.local.get(['userNotes'], (result) => {
+    console.log('Currently downloading... ' + result.userNotes);
+    const fileToSave = JSON.stringify([...result.userNotes], null, 2);
+    const url = 'data:application/json;base64,' + btoa(fileToSave);
+    chrome.downloads.download({
+      url: url,
+      filename: 'userNotes.json',
+    });
   });
 });
