@@ -1,33 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+  --green: rgb(5, 181, 5);
+}
+
+h1,
+p {
+  text-align: center;
+}
+
+p {
+  font-weight: 700;
+}
+
 main {
-  height: 200px;
-  width: 300px;
+  padding: 16px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: aliceblue;
+}
+
+.popup__header {
+  margin-bottom: 32px;
 }
 
 .button {
-  padding: 4px 8px;
+  padding: 8px 12px;
   margin: 2px;
   color: white;
+  box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.2);
   background-color: rgb(101, 101, 217);
   outline: none;
   border: none;
-  box-shadow: 0 4px 6px hsla(0, 0%, 0.2);
   transition: 300ms;
   border-radius: 30px;
   cursor: pointer;
 }
 
-#save {
-  margin-bottom: 16px;
-}
-
 .button:hover {
   background-color: rgb(118, 118, 210);
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
 }
 
 .button:active {
-  box-shadow: 0 1px 3px hsla(0, 0%, 0.2);
+  filter: brightness(0.8);
+}
+
+#backup {
+  background-color: var(--green);
+  margin-bottom: 32px;
+}
+
+#restore {
+  margin-bottom: 8px;
+}
+
+#backup,
+#restore,
+#file {
+  margin-top: 8px;
+}
+
+#file {
+  max-width: 200px;
+}
+
+.text--success {
+  width: 100%;
+  min-height: 16px;
+  font-weight: 700;
+  color: var(--green);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* 
+
+form 
+
+*/
+
+#form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

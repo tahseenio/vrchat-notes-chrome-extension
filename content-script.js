@@ -1,7 +1,4 @@
-// TODO: convert localstorage to chrome.storage
-// TODO: create a save backup of localstorage data / restore from backup.
-
-chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (msg, sendResponse) {
   if (msg.text === 'are_you_there_content_script?') {
     sendResponse({ status: 'yes' });
   }
@@ -24,25 +21,21 @@ color: white;
 background-color: transparent;
 resize: none;`;
 
-const findInjectTime = () => {
+const whenToInject = () => {
   if (document.querySelector('.css-rqhlr5') === null) {
     setTimeout(() => {
-      findInjectTime();
+      whenToInject();
     }, 100);
   } else {
     main();
   }
 };
-findInjectTime();
+whenToInject();
 
-// CODE TO VIEW CHROME LOCALSTORAGE (MUST VIEW IN SERVICE WORKER SECTION)
-// *******
-// chrome.storage.local.get(function(result){console.log(result)})
-// ********
 const main = () => {
   const divToInject = document.querySelector('.css-rqhlr5');
 
-  // This prevents multiple notes on the same page from being made
+  // This  line prevents multiple notes on the same page from being made
   if (divToInject.childElementCount === 2) return;
 
   const notesDiv = document.createElement('div');
@@ -66,7 +59,7 @@ const main = () => {
 
   let notes = [];
 
-  ///// converted to chrome.storage.local
+  // On mount, load userNotes from chrome.storage
   chrome.storage.local.get(['userNotes'], (result) => {
     console.log('Value currently is ' + result.userNotes);
     if (result.userNotes) {
@@ -79,6 +72,7 @@ const main = () => {
     }
   });
 
+  // On note change, update chrome.storage
   textArea.addEventListener('keyup', (e) => {
     notes.find((elem) => {
       if (elem.userID === userID) {
@@ -94,11 +88,12 @@ const main = () => {
         notes = [...newArr];
 
         chrome.storage.local.set({ userNotes: notes }, () => {
-          console.log('notes is set to ' + notes);
+          // console.log('notes is set to ' + notes);
         });
       }
     });
 
+    // If a note with new userID is being made, add a new object into notes Array
     if (notes.find((elem) => elem.userID === userID) === undefined) {
       // if undefined create a new object with note, current username and userID
       const newArr = [
@@ -115,23 +110,4 @@ const main = () => {
       });
     }
   });
-  // console.log('content-script ran...');
-  //
-  // sync
-  // chrome.storage.sync.set({key: value}, function() {
-  //   console.log('Value is set to ' + value);
-  // });
-
-  // chrome.storage.sync.get(['key'], function(result) {
-  //   console.log('Value currently is ' + result.key);
-  // });
-
-  // local
-  // chrome.storage.local.set({ key: value }, function () {
-  //   console.log('Value is set to ' + value);
-  // });
-
-  // chrome.storage.local.get(['key'], function (result) {
-  //   console.log('Value currently is ' + result.key);
-  // });
 };

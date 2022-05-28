@@ -6,11 +6,14 @@
   </head>
   <body>
     <main>
-      <p>Backup or restore data</p>
-      <button id="backup" class="button">Save Data</button>
+      <h1 class="popup__header">Backup or restore data</h1>
+      <p>Backup your VRChat Notes</p>
+      <button id="backup" class="button">Download Backup</button>
+      <p class="restore__para">Restore your VRChat Notes. Select a previous restore file (.json) and press the restore button</p>
       <form id="form">
-        <input type="file" id="file" accept=".json"></input>
+        <input type="file" id="file" required accept=".json"></input>
         <button type="submit" id="restore" class="button">Restore Data</button>
+        <span class="text--success">&nbsp;</span>
       </form>
     </main>
   </body>
