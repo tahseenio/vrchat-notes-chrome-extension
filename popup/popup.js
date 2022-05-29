@@ -4,7 +4,8 @@ backup.addEventListener('click', () => {
   chrome.storage.local.get(['userNotes'], (result) => {
     // console.log('Currently downloading... ' + result.userNotes);
     const fileToSave = JSON.stringify([...result.userNotes], null, 2);
-    const url = 'data:application/json;base64,' + btoa(fileToSave);
+    console.log(fileToSave);
+    const url = 'data:application/json,' + fileToSave;
     chrome.downloads.download({
       url: url,
       filename: 'userNotes.json',
