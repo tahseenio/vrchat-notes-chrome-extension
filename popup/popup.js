@@ -5,9 +5,22 @@ backup.addEventListener('click', () => {
     const fileToSave = JSON.stringify(result.userNotes, null, 2);
     // console.log('Currently downloading... ' + fileToSave);
     const url = 'data:text/plain,' + fileToSave;
+    const date = new Date();
+    const currentDate = date.toLocaleString('en-US', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    const formattedDate = currentDate
+      .replace(/\/|:/g, '-')
+      .replace(/\s/g, '')
+      .replace(/,/g, '_');
+
     chrome.downloads.download({
       url: url,
-      filename: 'userNotes.txt',
+      filename: `userNotes-${formattedDate}.txt`,
     });
   });
 });
