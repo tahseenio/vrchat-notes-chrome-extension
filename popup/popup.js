@@ -2,13 +2,12 @@
 backup = document.getElementById('backup');
 backup.addEventListener('click', () => {
   chrome.storage.local.get(['userNotes'], (result) => {
-    // console.log('Currently downloading... ' + result.userNotes);
-    const fileToSave = JSON.stringify([...result.userNotes], null, 2);
-    console.log(fileToSave);
-    const url = 'data:application/json,' + fileToSave;
+    const fileToSave = JSON.stringify(result.userNotes, null, 2);
+    // console.log('Currently downloading... ' + fileToSave);
+    const url = 'data:text/plain,' + fileToSave;
     chrome.downloads.download({
       url: url,
-      filename: 'userNotes.json',
+      filename: 'userNotes.txt',
     });
   });
 });
@@ -24,8 +23,6 @@ const getFileText = () => {
     chrome.storage.local.set({ userNotes: finalData }, () => {
       // console.log('notes is set to ' + notes);
     });
-
-    // TODO: ADD a SUCCESSFULY UPLOADED STATE FOR the upload data
     // alert(finalData);
   });
 

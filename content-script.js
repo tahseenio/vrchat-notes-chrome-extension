@@ -61,7 +61,7 @@ const main = () => {
 
   // On mount, load userNotes from chrome.storage
   chrome.storage.local.get(['userNotes'], (result) => {
-    console.log('Value currently is ' + result.userNotes);
+    // console.log('Value currently is ' + result.userNotes);
     if (result.userNotes) {
       notes = [...result.userNotes];
       notes.filter((elem) => {
@@ -106,7 +106,7 @@ const main = () => {
       ];
       notes = [...newArr];
       chrome.storage.local.set({ userNotes: notes }, () => {
-        console.log('notes is set to ' + notes);
+        // console.log('notes is set to ' + notes);
       });
     }
   });

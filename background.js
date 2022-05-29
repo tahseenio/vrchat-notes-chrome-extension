@@ -8,7 +8,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
       if (chrome.runtime.lastError) {
       }
       if (msg.status !== 'yes') {
-        console.log('failed to get status?');
+        // console.log('failed to get status?');
         if (details.url.includes('https://vrchat.com/home/user/')) {
           chrome.scripting.executeScript({
             target: { tabId: details.tabId },
@@ -16,7 +16,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
           });
         }
       } else if (msg.status === 'yes') {
-        console.log('status yes');
+        // console.log('status yes');
         if (details.url.includes('https://vrchat.com/home/user/')) {
           chrome.scripting.executeScript({
             target: { tabId: details.tabId },
