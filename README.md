@@ -2,8 +2,13 @@
 
 <p>This extension allows users to take notes of new friends they have made in VRChat on the official [VRChat](https://vrchat.com/home website) website. All data is stored on localstorage so please ensure you take frequent backups of your notes using the menu (see below).</p>
 
-# FUTURE WORK
-- Cloud backup of notes
+# Lessons Learned
+- Learned how to create chrome extensions using Manifest V3.
+- Learned how to use ChromeStorage API so the popup menu was able to access data stored on the VRChat website.
+- It was interesting to use native JavaScript functions to inject custom Elements such as my notes element and ensure it is responsive, and is able to re-render whenever a new users profile is viewed.
+
+# Future Work
+- Cloud backup of notes using a backend provider such as Firebase's Firestore
 
 # Screenshots
 
