@@ -8,7 +8,7 @@
 - It was interesting to use native JavaScript functions to inject custom Elements such as my notes element and ensure it is responsive, and is able to re-render whenever a new users profile is viewed.
 
 # Future Work
-- Cloud backup of notes using a backend provider such as Firebase's Firestore
+- Cloud backup of notes using a backend such as Firebase's Firestore
 
 # Screenshots
 
