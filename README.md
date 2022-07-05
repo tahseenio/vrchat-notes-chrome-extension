@@ -1,6 +1,6 @@
 # VRChat Notes Chrome Extension
 
-<p>This extension allows users to take notes of new friends they have made in VRChat on the official [VRChat](https://vrchat.com/home website) website. All data is stored on localstorage so please ensure you take frequent backups of your notes using the menu (see below).</p>
+<p>This extension allows users to take notes of new friends they have made in VRChat on the official [VRChat](https://vrchat.com/home) website. All data is stored on localstorage so please ensure you take frequent backups of your notes using the menu (see below).</p>
 
 # Lessons Learned
 - Learned how to create chrome extensions using Manifest V3.
