@@ -14,7 +14,7 @@
 
 ## Without Notes Extension
 
-![without notes](https://user-images.githubusercontent.com/55749172/175988161-fd88866a-495a-4f3c-b781-27f4d9be4fe5.png)
+![image](https://user-images.githubusercontent.com/55749172/179184192-2ff07f84-a64a-4e91-9da5-7ef1d78b1444.png)
 
 ## With Notes Extension
 
